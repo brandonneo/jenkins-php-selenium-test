@@ -1,15 +1,27 @@
 pipeline {
-	agent none
-	stages {
-		stage('Checkout SCM') {
-			steps {
-				git 'https://github.com/brandonneo/jenkins-php-selenium-test.git'
-			}
-		}
-		stage('Integration UI Test') {
-				stage('Deploy') {
-					agent any
-				}
-		}
-	}
+	 agent any
+
+	 stages {
+	 stage ('Checkout') {
+		steps {
+	 git branch:'main', url: 'https://github.com/brandonneo/jenkins-php-selenium-test.git'
+	 }
+ }
+
+ stage('Code Quality Check via SonarQube') {
+ steps {
+ script {
+ def scannerHome = tool 'SonarQube';
+ withSonarQubeEnv('SonarQube') {
+ sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=OWASP -Dsonar.sources=."
+ }
+ }
+ }
+ }
+ }
+ post {
+ always {
+ recordIssues enabledForFailure: true, tool: sonarQube()
+ }
+ }
 }
