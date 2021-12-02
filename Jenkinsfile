@@ -2,11 +2,6 @@ pipeline {
 	 agent any
 
 	 stages {
-	 stage ('Checkout') {
-		steps {
-	 git branch:'main', url: 'https://github.com/brandonneo/jenkins-php-selenium-test.git'
-	 }
- }
 
  stage('Code Quality Check via SonarQube') {
  steps {
