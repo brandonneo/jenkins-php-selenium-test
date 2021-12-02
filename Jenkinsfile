@@ -7,7 +7,7 @@ pipeline {
 				}
 				stage('Checkout SCM') {
 					steps {
-						git 'https://github.com/brandonneo/JenkinsDependencyCheckTest.git'
+						git 'https://github.com/brandonneo/jenkins-php-selenium-test.git'
 					}
 				}
 				stage('Headless Browser Test') {
