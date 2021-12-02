@@ -2,13 +2,12 @@ pipeline {
 	agent none
 	stages {
 		stage('Integration UI Test') {
-			parallel {
 				stage('Deploy') {
 					agent any
+				}
+				stage('Checkout SCM') {
 					steps {
-						sh './jenkins/scripts/deploy.sh'
-						input message: 'Finished using the web site? (Click "Proceed" to continue)'
-						sh './jenkins/scripts/kill.sh'
+						git 'https://github.com/brandonneo/JenkinsDependencyCheckTest.git'
 					}
 				}
 				stage('Headless Browser Test') {
@@ -28,7 +27,16 @@ pipeline {
 						}
 					}
 				}
-			}
+				stage('Code Quality Check via SonarQube') {
+				steps {
+				script {
+				def scannerHome = tool 'SonarQube';
+				withSonarQubeEnv('SonarQube') {
+				sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=OWASP -Dsonar.sources=."
+				}
+				}
+				}
+				}
 		}
 	}
 }

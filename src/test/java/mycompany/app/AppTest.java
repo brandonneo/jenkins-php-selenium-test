@@ -39,7 +39,7 @@ public class AppTest
 	}
 
     @Test
-    public void testLoginWithValidEmailValidPassword()
+    public void testValiSearch()
 		throws InterruptedException {
 
 		//get web page
@@ -59,7 +59,7 @@ public class AppTest
 	}
 
 	@Test
-    public void testLoginWithValidEmailInvalidPassword()
+    public void testValiinvalidSearch()
 		throws InterruptedException {
 
 		//get web page
@@ -75,7 +75,7 @@ public class AppTest
 
 		//check result
 	//	By errorMsgId = By.className("error-msg");
-		String expectedResult = "attacked by Prans";
+		String expectedResult = "Search Page";
 		boolean isResultCorrect = wait.until(ExpectedConditions.textToBe(errorMsgId, expectedResult));
 		assertTrue(isResultCorrect == true);
 	}

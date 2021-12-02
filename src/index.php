@@ -5,8 +5,7 @@ if(isset($_POST['submit']))
 //	if((isset($_POST['Search'] !='')){
 		if (strpos($_POST['Search'],'<script>') !== false) { // attack
 
-			echo '<script>alert("attacked by Prans")</script>';
-
+		//	echo '<script>alert("attacked by Prans")</script>';
   		$_POST['Search'] ="";
 		}
 		else{
