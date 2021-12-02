@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 ?>
 
@@ -12,10 +12,7 @@
 <body>
 	My search item!:
 		<?php
-		if(isset($POST['Search'])){
-				echo $POST['Search'];
-		}
-
+echo $_SESSION['Search'];
 
 		?>
 

@@ -1,4 +1,22 @@
+<?php
+session_start();
+if(isset($_POST['submit']))
+{
+//	if((isset($_POST['Search'] !='')){
+		if (strpos($_POST['Search'],'<script>') !== false) { // attack
 
+			echo '<script>alert("attacked by Prans")</script>';
+
+  		$_POST['Search'] ="";
+		}
+		else{
+			$_SESSION['Search'] =  $_POST['Search'];
+			header('location:dashboard.php');
+		 exit;
+		}
+}
+
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +27,7 @@
 <body>
 
 	<div class="container">
-		<form name="form1"action="dashboard.php" onsubmit="submit()">
-			<div class="field-container">
+		<form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
 				<label>Search</label>
 				<input type="text" name="Search">
 			</div>
@@ -21,20 +38,5 @@
 		</form>
 	</div>
 </body>
-<script type="text/javascript">
 
-	function submit(){
-		var empt = document.forms["form1"]["Search"].value;
-		if (empt == "")
-		{
-		alert("Please input a Value");
-		return false;
-	}
-	else
-{
-	alert('Accept');
-	return true;
-}
-}
-</script>
 </html>

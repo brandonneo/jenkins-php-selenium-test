@@ -23,11 +23,9 @@ public class AppTest
 {
 	WebDriver driver;
 	WebDriverWait wait;
-	String url = "http://10.0.2.15";
-	String validEmail = "user@example.com";
-	String validPassword = "password1234";
-	String invalidEmail = "none@example.com";
-	String invalidPassword = "password";
+	String url = "http://18.119.113.202";
+	String validSearch = "bob";
+	String invalidSearch = "<script>";
 
     @Before
     public void setUp() {
@@ -47,16 +45,15 @@ public class AppTest
 		//get web page
 		driver.get(url);
 		//wait until page is loaded or timeout error
-		wait.until(ExpectedConditions.titleContains("Login Page |"));
+		wait.until(ExpectedConditions.titleContains("Search Page"));
 
 		//enter input
-		driver.findElement(By.name("email")).sendKeys(validEmail);
-		driver.findElement(By.name("password")).sendKeys(validPassword);
+		driver.findElement(By.name("Search")).sendKeys(validSearch);
 		//click submit
 		driver.findElement(By.name("submit")).submit();
 
 		//check result
-		String expectedResult = "Dashboard |";
+		String expectedResult = "Item search |";
 		boolean isResultCorrect = wait.until(ExpectedConditions.titleContains(expectedResult));
 		assertTrue(isResultCorrect == true);
 	}
@@ -68,17 +65,17 @@ public class AppTest
 		//get web page
 		driver.get(url);
 		//wait until page is loaded or timeout error
-		wait.until(ExpectedConditions.titleContains("Login Page |"));
+		wait.until(ExpectedConditions.titleContains("Search Page"));
 
 		//enter input
-		driver.findElement(By.name("email")).sendKeys(validEmail);
-		driver.findElement(By.name("password")).sendKeys(invalidPassword);
+
+		driver.findElement(By.name("Search")).sendKeys(invalidSearch);
 		//click submit
 		driver.findElement(By.name("submit")).submit();
 
 		//check result
-		By errorMsgId = By.className("error-msg");
-		String expectedResult = "Login failed";
+	//	By errorMsgId = By.className("error-msg");
+		String expectedResult = "attacked by Prans";
 		boolean isResultCorrect = wait.until(ExpectedConditions.textToBe(errorMsgId, expectedResult));
 		assertTrue(isResultCorrect == true);
 	}
