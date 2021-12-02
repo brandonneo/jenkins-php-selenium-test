@@ -1,15 +1,16 @@
 pipeline {
 	agent none
 	stages {
+		stage('Checkout SCM') {
+			steps {
+				git 'https://github.com/brandonneo/jenkins-php-selenium-test.git'
+			}
+		}
 		stage('Integration UI Test') {
 				stage('Deploy') {
 					agent any
 				}
-				stage('Checkout SCM') {
-					steps {
-						git 'https://github.com/brandonneo/jenkins-php-selenium-test.git'
-					}
-				}
+
 				stage('Headless Browser Test') {
 					agent {
 						docker {
@@ -26,16 +27,6 @@ pipeline {
 							junit 'target/surefire-reports/*.xml'
 						}
 					}
-				}
-				stage('Code Quality Check via SonarQube') {
-				steps {
-				script {
-				def scannerHome = tool 'SonarQube';
-				withSonarQubeEnv('SonarQube') {
-				sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=OWASP -Dsonar.sources=."
-				}
-				}
-				}
 				}
 		}
 	}
