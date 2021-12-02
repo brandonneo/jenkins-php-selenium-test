@@ -11,7 +11,13 @@
 
 <body>
 	My search item!:
-		<?php echo ($POST['Search']);?> </span>
+		<?php
+		if(isset($POST['Search'])){
+				echo $POST['Search'];
+		}
+
+
+		?>
 
 	</div>
 </body>
